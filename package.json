@@ -9,6 +9,9 @@
     "start": "node index.js",
     "dev": "nodemon index"
   },
+  "engines": {
+    "node": "16.13.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
