@@ -1,5 +1,5 @@
-const {  readFile} = require( "node:fs")
-const {promisify} = require( "node:util")
+const {  readFile} = require( "fs")
+const {promisify} = require( "util")
 const jwt = require('jsonwebtoken')
 //promise versions
 const fileReadUtil=promisify(readFile)

@@ -1,8 +1,8 @@
 
 const multer = require('multer')
 const crypto = require('crypto')
-const { tmpdir } = require('node:os')
-const { extname } = require('node:path')
+const { tmpdir } = require('os')
+const { extname } = require('path')
 
 const diskStorage = multer.diskStorage({
     destination: tmpdir(),

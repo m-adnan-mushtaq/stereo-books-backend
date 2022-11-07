@@ -10,7 +10,7 @@ const {
   uploadBufferToS3Helper,
   uploadStreamToS3Helper,
 } = require("../utils/upload.js");
-const { readFileSync } = require("node:fs");
+const { readFileSync } = require("fs");
 const { DeleteObjectsCommand } = require("@aws-sdk/client-s3");
 const s3Client = require("../config/s3.js");
 const { CreateInvalidationCommand } = require("@aws-sdk/client-cloudfront");

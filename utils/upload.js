@@ -1,7 +1,7 @@
 const  client = require( "../config/s3.js")
 const  {Upload} = require( "@aws-sdk/lib-storage")
-const  {createReadStream} = require( "node:fs")
-const  {unlink} = require( "node:fs/promises")
+const  {createReadStream} = require( "fs")
+const  {unlink} = require( "fs/promises")
 const  sharp = require( "sharp")
 const  {PutObjectCommand} = require( "@aws-sdk/client-s3")
 
