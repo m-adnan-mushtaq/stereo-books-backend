@@ -14,7 +14,8 @@ mongoose.connect(process.env.MONGO_CLOUD_URL).then(()=>console.log('MongoDB is c
 const app=express()
 const port=process.env.PORT || 5000
 app.use(cors({
-    credentials:true
+    origin:'*',
+    credentials:true,
 }))
 app.use(express.json({limit:'150mb'}))
 app.use(express.urlencoded({extended:false,limit:'150mb'}))
