@@ -1,13 +1,13 @@
-import { Router } from "express";
-import {
+const  { Router } = require( "express")
+const  {
   createBookHanldler,
   getBookAudioSignedUrl,
   getBooksHandler,
   uploadBookAudioHanlder,
   deleteBookHandler,
   findBookByIdHanldler,
-} from "../controllers/book.js";
-import { ensureAuth } from "../middlewares/guardRoutes.js";
+} = require( "../controllers/book.js")
+const  { ensureAuth } = require( "../middlewares/guardRoutes.js")
 const router = Router();
 
 //------------- @books/ route------------------------
@@ -28,4 +28,5 @@ router
   .get(findBookByIdHanldler)
   .delete(ensureAuth, deleteBookHandler);
 
-export default router;
+
+module.exports=  router;

@@ -1,4 +1,4 @@
-import {CloudFrontClient} from "@aws-sdk/client-cloudfront" 
+const {CloudFrontClient} = require('@aws-sdk/client-cloudfront')
 
 
 const cloudfrontClient=new CloudFrontClient({
@@ -9,4 +9,4 @@ const cloudfrontClient=new CloudFrontClient({
     },
     
 });
-export default cloudfrontClient;
+module.exports= cloudfrontClient;

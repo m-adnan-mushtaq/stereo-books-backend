@@ -1,4 +1,4 @@
-import User from "../models/User.js"
+const User = require("../models/User.js")
 async function listAuthorsHandler(req, res) {
     try {
 
@@ -15,4 +15,4 @@ async function listAuthorsHandler(req, res) {
 
 }
 
-export {listAuthorsHandler}
+module.exports= {listAuthorsHandler}

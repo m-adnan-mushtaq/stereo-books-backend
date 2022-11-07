@@ -1,6 +1,6 @@
-import {  readFile} from "node:fs"
-import {promisify} from "node:util"
-import jwt from "jsonwebtoken"
+const {  readFile} = require( "node:fs")
+const {promisify} = require( "node:util")
+const jwt = require('jsonwebtoken')
 //promise versions
 const fileReadUtil=promisify(readFile)
 const sign=promisify(jwt.sign)
@@ -67,4 +67,4 @@ async function verifyJwtRefreshToken(token) {
 }
 
 
-export {verifyJwtAccessToken , verifyJwtRefreshToken,generateAcessJwtToken , generateRefreshJwtToken}
+module.exports=  {verifyJwtAccessToken , verifyJwtRefreshToken,generateAcessJwtToken , generateRefreshJwtToken}

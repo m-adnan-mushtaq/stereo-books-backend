@@ -1,7 +1,7 @@
-import { Router } from "express";
+const { Router }  =require( "express")
 const router=Router()
-import {listAuthorsHandler} from "../controllers/authors.js"
+const {listAuthorsHandler} = require( "../controllers/authors.js")
 //------------- @authors/------------------------
 router.get('/', listAuthorsHandler)
 
-export default router
+module.exports= router

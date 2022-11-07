@@ -1,9 +1,9 @@
-import client from "../config/s3.js"
-import {Upload} from "@aws-sdk/lib-storage"
-import {createReadStream} from "node:fs"
-import {unlink} from "node:fs/promises"
-import sharp from "sharp"
-import {PutObjectCommand} from "@aws-sdk/client-s3"
+const  client = require( "../config/s3.js")
+const  {Upload} = require( "@aws-sdk/lib-storage")
+const  {createReadStream} = require( "node:fs")
+const  {unlink} = require( "node:fs/promises")
+const  sharp = require( "sharp")
+const  {PutObjectCommand} = require( "@aws-sdk/client-s3")
 
 /**
  * function for uplaoding streams to s3 bucket
@@ -75,4 +75,4 @@ async function compressPic(buffer){
         throw Error(error)
     }
 }
-export {uploadStreamToS3Helper, uploadBufferToS3Helper,compressPic}
+module.exports=  {uploadStreamToS3Helper, uploadBufferToS3Helper,compressPic}

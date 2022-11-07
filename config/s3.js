@@ -1,5 +1,4 @@
-import "../config/dotenv.js"
-import { S3Client } from "@aws-sdk/client-s3"; 
+const { S3Client } = require( "@aws-sdk/client-s3" )
 const s3Region=process.env.S3_BUCKET_REGION
 const s3Client=new S3Client({
     region:s3Region,
@@ -9,4 +8,4 @@ const s3Client=new S3Client({
     },
 })
 
-export default s3Client
+module.exports= s3Client

@@ -1,42 +1,43 @@
-import multer from "multer"
-import crypto from "node:crypto"
-import {tmpdir} from "node:os"
-import { extname } from "node:path"
 
-const diskStorage=multer.diskStorage({
-    destination:tmpdir(),
-    filename:generateFileName
+const multer = require('multer')
+const crypto = require('crypto')
+const { tmpdir } = require('node:os')
+const { extname } = require('node:path')
+
+const diskStorage = multer.diskStorage({
+    destination: tmpdir(),
+    filename: generateFileName
 })
 
-const bufferStorage=multer.memoryStorage()
+const bufferStorage = multer.memoryStorage()
 
-const uploadAudioInstance=multer({
-    storage:diskStorage,
-    fileFilter:function(req,file,cb) {
-        const audioAllowedTypes=/mp4|mp3|wav|ogg|mpeg/
-        return fileValidatorHelper(file,cb,audioAllowedTypes)
+const uploadAudioInstance = multer({
+    storage: diskStorage,
+    fileFilter: function (req, file, cb) {
+        const audioAllowedTypes = /mp4|mp3|wav|ogg|mpeg/
+        return fileValidatorHelper(file, cb, audioAllowedTypes)
     },
-    limits:{
-        files:1,
-        fileSize:150*1024*1024 //150mb,
+    limits: {
+        files: 1,
+        fileSize: 150 * 1024 * 1024 //150mb,
     }
 }).fields([
     {
-        name:'bookAudio',
-        maxCount:1
+        name: 'bookAudio',
+        maxCount: 1
     }
 ])
 
 
-const uploadBufferPicInstance=multer({
-    storage:bufferStorage,
-    fileFilter:function(req,file,cb) {
-        const allowedTypes=/jpeg|jpg|png/
-        return fileValidatorHelper(file,cb,allowedTypes)
+const uploadBufferPicInstance = multer({
+    storage: bufferStorage,
+    fileFilter: function (req, file, cb) {
+        const allowedTypes = /jpeg|jpg|png/
+        return fileValidatorHelper(file, cb, allowedTypes)
     },
-    limits:{
-        files:1,
-        fileSize:4*1024*1024 //4mb,
+    limits: {
+        files: 1,
+        fileSize: 4 * 1024 * 1024 //4mb,
     }
 }).single('coverPic')
 
@@ -47,12 +48,12 @@ const uploadBufferPicInstance=multer({
  * @returns {String} unique name.ext
  */
 function generateKeyHelper(originalname) {
-    return crypto.randomBytes(32).toString('hex')+extname(originalname)
+    return crypto.randomBytes(32).toString('hex') + extname(originalname)
 }
 
-function generateFileName(req,file,cb){
-    let updatedName= generateKeyHelper(file.originalname)
-    cb(null,updatedName)
+function generateFileName(req, file, cb) {
+    let updatedName = generateKeyHelper(file.originalname)
+    cb(null, updatedName)
 }
 
 
@@ -62,11 +63,11 @@ function generateFileName(req,file,cb){
  * @param {Function} cb  cb for execeptions
  * @param {RegExp} regex regex of allowed file types
  */
-function fileValidatorHelper(file,cb,regex) {
-    const checkFileType= regex.test(extname(file.originalname))
-    const checkMimeType= regex.test(file.mimetype)
-    if (checkFileType && checkMimeType) cb(null,file)
+function fileValidatorHelper(file, cb, regex) {
+    const checkFileType = regex.test(extname(file.originalname))
+    const checkMimeType = regex.test(file.mimetype)
+    if (checkFileType && checkMimeType) cb(null, file)
     else cb(new Error('File format is invalid, try using audio formats!'))
 }
 
-export {uploadAudioInstance,uploadBufferPicInstance,generateKeyHelper};
+module.exports = { uploadAudioInstance, uploadBufferPicInstance, generateKeyHelper };

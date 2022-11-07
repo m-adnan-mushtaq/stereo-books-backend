@@ -1,7 +1,7 @@
-import categories from "../mock/cat.js"
-import Book from "../models/Book.js"
-import { authorPopulatOptions } from "../utils/utils.js"
-import User from "../models/User.js"
+const categories = require( "../mock/cat.js")
+const Book = require( "../models/Book.js")
+const { authorPopulatOptions } = require( "../utils/utils.js")
+const User = require( "../models/User.js")
 async function homePageDataHandler(req, res) {
     try {
 
@@ -40,4 +40,4 @@ async function getUsersHandler(req,res){
         })
     }
 }
-export {homePageDataHandler,getCategoriesHanlder,getUsersHandler}
+module.exports=  {homePageDataHandler,getCategoriesHanlder,getUsersHandler}

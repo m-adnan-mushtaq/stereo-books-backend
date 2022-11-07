@@ -1,5 +1,5 @@
-import User from "../models/User.js"
-import { generateAcessJwtToken, generateRefreshJwtToken, verifyJwtRefreshToken } from "../utils/token.js"
+const User=require('../models/User')
+const { generateAcessJwtToken, generateRefreshJwtToken, verifyJwtRefreshToken } = require( "../utils/token.js")
 
 async function signUpHanlder(req, res) {
     {
@@ -33,28 +33,28 @@ async function signInHanlder(req, res) {
             //compare password
             if (!await user.compareHash(password)) throw Error('Email or Password is Invalid')
             //get access token
-            const accessToken = await generateAcessJwtToken({ 
-                "userInfo":{
-                    id: user._id, name:user.name, email:user.email
+            const accessToken = await generateAcessJwtToken({
+                "userInfo": {
+                    id: user._id, name: user.name, email: user.email
                 },
-             })
+            })
 
 
-            const refreshToken=await generateRefreshJwtToken({"userId":user._id}) 
-             // generate refresh token and store it the cookie
-             res.cookie('jwt',refreshToken,{
-                httpOnly:true,
-                signed:true,
-                sameSite:'None',
-                maxAge:7 * 24 * 3600 * 1000 ,// 7 days,
-                secure:true
+            const refreshToken = await generateRefreshJwtToken({ "userId": user._id })
+            // generate refresh token and store it the cookie
+            res.cookie('jwt', refreshToken, {
+                httpOnly: true,
+                signed: true,
+                sameSite: 'None',
+                maxAge: 7 * 24 * 3600 * 1000,// 7 days,
+                secure: true
             })
 
             user = user.toObject()
-            let {password:key,...loggedUser}=user
+            let { password: key, ...loggedUser } = user
             res.status(200).json({
                 accessToken,
-                user:loggedUser
+                user: loggedUser
             })
         } catch (error) {
             console.error(error.message)
@@ -71,19 +71,19 @@ async function refreshRouteHanlder(req, res) {
             //create account handler
             // console.log('refresh token request got received');
             //get cookie
-            let refreshToken=req.signedCookies['jwt']
-            if(!refreshToken) throw Error('No Token Cookie found!')
+            let refreshToken = req.signedCookies['jwt']
+            if (!refreshToken) throw Error('No Token Cookie found!')
 
             //verify refresh token
-            const payload=await verifyJwtRefreshToken(refreshToken)
+            const payload = await verifyJwtRefreshToken(refreshToken)
 
             //now find user if it exists
-            const user=await User.findById(payload['userId']).orFail()
-            const accessToken = await generateAcessJwtToken({ 
-                "userInfo":{
-                    id: user._id, name:user.name, email:user.email
+            const user = await User.findById(payload['userId']).orFail()
+            const accessToken = await generateAcessJwtToken({
+                "userInfo": {
+                    id: user._id, name: user.name, email: user.email
                 },
-             })
+            })
 
             res.status(200).json({
                 accessToken,
@@ -99,10 +99,10 @@ async function refreshRouteHanlder(req, res) {
 }
 
 
-function logOutHanlder(req,res) {
+function logOutHanlder(req, res) {
     // console.log(req.cookies);
     // console.log(req.signedCookies);
-    res.clearCookie('jwt',{httpOnly:true,sameSite:'None',secure:true})
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
     res.json()
 }
-export { signUpHanlder, signInHanlder , refreshRouteHanlder , logOutHanlder}
+module.exports = { signUpHanlder, signInHanlder, refreshRouteHanlder, logOutHanlder }

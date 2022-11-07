@@ -1,4 +1,4 @@
-export default [
+module.exports= [
     'Young Adult',
     'Romance',
     'Mystery',
