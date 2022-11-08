@@ -4,3 +4,5 @@ jwtRS256.key.pub
 rsa.private
 rsa.public
 /node_modules
+temp_auto_push.bat
+temp_interactive_push.bat
